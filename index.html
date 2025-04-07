@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevNav - Developer Resources Navigator</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        #search {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        #search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .link-list {
+            list-style: none;
+        }
+        
+        .link-item {
+            margin-bottom: 0.75rem;
+        }
+        
+        .link-item a {
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .link-item a:hover {
+            color: var(--primary);
+        }
+        
+        .link-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.1);
+        }
+        
+        /* Dark mode */
+        body.dark-mode {
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --background: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+        }
+        
+        @media (max-width: 768px) {
+            .categories {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DevNav</h1>
+            <p>Your curated collection of AI tools and development resources</p>
+        </header>
+        
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search for tools, resources, etc.">
+        </div>
+        
+        <div class="categories">
+            <!-- AI Tools -->
+            <div class="category" data-category="ai">
+                <h2>AI Tools</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Raphael AI</a>
+                        <div class="link-desc">免费无限制 AI 图像生成器</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">DeepSeek - HIX AI</a>
+                        <div class="link-desc">Unlimited Free AI Chat</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">OpenRouter</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Toolify</a>
+                        <div class="link-desc">为你的需求找到最好的人工智能AI网站和工具</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">There's An AI For That</a>
+                        <div class="link-desc">AI导航站需求列表</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Development -->
+            <div class="category" data-category="dev">
+                <h2>Development</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Vercel</a>
+                        <div class="link-desc">Develop. Preview. Ship. For the best frontend teams</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">ShipFast</a>
+                        <div class="link-desc">Launch Your Startup in Days, Not Weeks</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Tailwind Play</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Trickle</a>
+                        <div class="link-desc">Prototype Design</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Domain Names -->
+            <div class="category" data-category="domains">
+                <h2>Domain Names</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Instant Domain Search</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Spaceship</a>
+                        <div class="link-desc">Domain registration | Launch your website, ideas, and future</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Lean Domain Search</a>
+                        <div class="link-desc">Search for and register available domain names in seconds</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Query.Domains</a>
+                        <div class="link-desc">Free Bulk check domain availability based on whois lookup</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Porkbun</a>
+                        <div class="link-desc">Domain registration</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Namecheap</a>
+                        <div class="link-desc">Buy a domain name - Register cheap domains from $0.99</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Templates & Boilerplates -->
+            <div class="category" data-category="templates">
+                <h2>Templates & Boilerplates</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Next.js Boilerplate</a>
+                        <div class="link-desc">Next.js 15 with App Router, Tailwind CSS 4, TypeScript</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">SaaS Boilerplate</a>
+                        <div class="link-desc">Next.js + Tailwind CSS + Shadcn UI + TypeScript</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Next.js Landing Page Template</a>
+                        <div class="link-desc">Free NextJS Landing Page with Tailwind CSS 3</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Astro Boilerplate</a>
+                        <div class="link-desc">Responsive blog and portfolio template with TypeScript and React</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Landing Page Boilerplate</a>
+                        <div class="link-desc">Versatile landing page for projects and marketing campaigns</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Open SaaS</a>
+                        <div class="link-desc">Free, open-source SaaS app starter for React & Node.js</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- SEO & Analytics -->
+            <div class="category" data-category="seo">
+                <h2>SEO & Analytics</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Google Analytics</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Google Search Console</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Ahrefs Free SEO Tools</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">AITDK</a>
+                        <div class="link-desc">Free AI SEO Tools, AI Generator for SEO</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Free Keyword Generator Tool</a>
+                        <div class="link-desc">Find 100+ Keyword Ideas in Seconds</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Semrush</a>
+                        <div class="link-desc">Online Marketing Made Easy</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Google SEO Basics Guide</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Navigation Site Templates -->
+            <div class="category" data-category="nav">
+                <h2>Navigation Site Templates</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">fre123-nav</a>
+                        <div class="link-desc">FRE123 免费资源共享平台导航</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">OSS Gallery</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">WebStackPage</a>
+                        <div class="link-desc">静态响应式网址导航网站</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">tap4-ai-webui</a>
+                        <div class="link-desc">One-click deploy AI tools directory with open source web-ui</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">UI Lib Picker</a>
+                        <div class="link-desc">For Vue 3 / Nuxt 3</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">dokeyai-data</a>
+                        <div class="link-desc">Public AI tools data for website</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- News & Resources -->
+            <div class="category" data-category="news">
+                <h2>News & Resources</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Reddit Communities</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Top Websites Ranking</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">AI Short Video Market Overview</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Starter Story Premium Solopreneur Report</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">500MRR</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Hacker News</a>
+                        <div class="link-desc">Ask HN: Those making $500/month on side projects</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Games -->
+            <div class="category" data-category="games">
+                <h2>Games</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">itch.io</a>
+                        <div class="link-desc">Download the latest indie games</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Kongregate</a>
+                        <div class="link-desc">Play Free Online Games - The Ultimate Gaming Platform</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">PlayTela.com</a>
+                        <div class="link-desc">Free Online Games - Play Now!</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Product Research -->
+            <div class="category" data-category="research">
+                <h2>Product Research</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">Google Keyword Search</a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">Free Keyword Difficulty Checker</a>
+                        <div class="link-desc">By Ahrefs</div>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">huntscreens</a>
+                        <div class="link-desc">Screenshots of new projects on Producthunt, YC, and Indiehackers</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <button class="theme-toggle" id="theme-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    
+    <footer>
+        <p>DevNav © 2025 - Your personal development resources navigator</p>
+    </footer>
+    
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('search');
+        const categories = document.querySelectorAll('.category');
+        const linkItems = document.querySelectorAll('.link-item');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // Show all categories and links if search is empty
+                categories.forEach(cat => cat.style.display = 'block');
+                linkItems.forEach(item => item.style.display = 'block');
+                return;
+            }
+            
+            // Hide all categories initially
+            categories.forEach(cat => cat.style.display = 'none');
+            
+            // For each link item
+            linkItems.forEach(item => {
+                const linkText = item.querySelector('a').textContent.toLowerCase();
+                const descEl = item.querySelector('.link-desc');
+                const descText = descEl ? descEl.textContent.toLowerCase() : '';
+                
+                // Check if search term is in link text or description
+                if (linkText.includes(searchTerm) || descText.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    item.closest('.category').style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Hide empty categories (where all links are hidden)
+            categories.forEach(cat => {
+                const visibleLinks = cat.querySelectorAll('.link-item[style="display: block;"]');
+                if (visibleLinks.length === 0) {
+                    cat.style.display = 'none';
+                }
+            });
+        });
+        
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme in localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            updateThemeIcon(true);
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            
+            // Save theme preference
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            updateThemeIcon(isDarkMode);
+        });
+        
+        function updateThemeIcon(isDarkMode) {
+            if (isDarkMode) {
+                themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+            } else {
+                themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+            }
+        }
+    </script>
+</body>
+</html>
